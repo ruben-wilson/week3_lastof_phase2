@@ -4,21 +4,6 @@ _Copy this recipe template to design and implement Model and Repository classes 
 
 ## 1. Design and create the Table
 
-If the table is already created in the database, you can skip this step.
-
-Otherwise, [follow this recipe to design and create the SQL schema for your table](./single_table_design_recipe_template.md).
-
-*In this template, we'll use an example table `students`*
-
-```
-# EXAMPLE
-
-Table: students
-
-Columns:
-id | name | cohort_name
-```
-
 ## 2. Create Test SQL seeds
 
 Your tests will depend on data stored in PostgreSQL to run.
@@ -56,16 +41,16 @@ Usually, the Model class name will be the capitalised table name (single instead
 
 ```ruby
 # EXAMPLE
-# Table name: students
+# Table name: recipes 
 
 # Model class
 # (in lib/student.rb)
-class Student
+class recipe
 end
 
 # Repository class
 # (in lib/student_repository.rb)
-class StudentRepository
+class RecipeRepository
 end
 ```
 
@@ -80,10 +65,10 @@ Define the attributes of your Model class. You can usually map the table columns
 # Model class
 # (in lib/student.rb)
 
-class Student
+class recipe
 
   # Replace the attributes by your own columns.
-  attr_accessor :id, :name, :cohort_name
+  attr_accessor :id, :names, :cooking_time, :rating
 end
 
 # The keyword attr_accessor is a special Ruby feature
@@ -110,7 +95,7 @@ Using comments, define the method signatures (arguments and return value) and wh
 # Repository class
 # (in lib/student_repository.rb)
 
-class StudentRepository
+class RecipeRepository
 
   # Selecting all records
   # No arguments
@@ -129,17 +114,6 @@ class StudentRepository
 
     # Returns a single Student object.
   end
-
-  # Add more methods below for each operation you'd like to implement.
-
-  # def create(student)
-  # end
-
-  # def update(student)
-  # end
-
-  # def delete(student)
-  # end
 end
 ```
 
@@ -155,30 +129,35 @@ These examples will later be encoded as RSpec tests.
 # 1
 # Get all students
 
-repo = StudentRepository.new
+repo = RecipeRepository.new
 
-students = repo.all
+recipes = repo.all
 
-students.length # =>  2
+recipes.length # =>  2
 
-students[0].id # =>  1
-students[0].name # =>  'David'
-students[0].cohort_name # =>  'April 2022'
+recipes[0].id # =>  1
+recipes[0].names # =>  'beans on toast'
+recipes[0].cooking_time #=> 30
+recipes[0].rating #=> 2
 
-students[1].id # =>  2
-students[1].name # =>  'Anna'
-students[1].cohort_name # =>  'May 2022'
+recipes[1].id # =>  2
+recipes[1].names # =>  'chicken and chips'
+recipes[1].cooking_time # =>  10
+recipes[1].rating # =>  5
 
 # 2
 # Get a single student
 
 repo = StudentRepository.new
 
-student = repo.find(1)
+recipes = repo.find(1)
 
-student.id # =>  1
-student.name # =>  'David'
-student.cohort_name # =>  'April 2022'
+recipes.length # =>  1
+
+recipes[0].id # =>  1
+recipes[0].names # =>  'beans on toast'
+recipes[0].cooking_time #=> 30
+recipes[0].rating #=> 2
 
 # Add more examples for each method
 ```

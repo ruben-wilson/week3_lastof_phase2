@@ -1,15 +1,11 @@
 # file: app.rb
 
 require_relative 'lib/database_connection'
+require_relative 'lib/RecipeRepository'
 
 # We need to give the database name to the method `connect`.
-DatabaseConnection.connect('music_library')
+DatabaseConnection.connect('recipes')
 
-# Perform a SQL query on the database and get the result set.
-sql = 'SELECT id, title FROM albums;'
-result = DatabaseConnection.exec_params(sql, [])
+repo = RecipeRepository.new
 
-# Print out each record from the result set .
-result.each do |record|
-  p record
-end
+p repo.find(1)
